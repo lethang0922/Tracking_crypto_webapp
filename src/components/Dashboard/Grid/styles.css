@@ -4,7 +4,7 @@
   border:2px solid #eb420a;
   background-color: var(--lightgray);
   border-radius: 0.8rem;
-  padding: 1rem;
+  padding: 1rem 2rem;
 }
 .info-flex{
   display: flex;
@@ -16,6 +16,7 @@
 .coin-logo{
   height: 4rem;
   width: 4rem;
+  padding-top: -2rem;
 }
 .coin-symbol{
   color: var(--white);
@@ -29,12 +30,13 @@ color: var(--gray);
   text-transform: capitalize;
   font-weight: light;
   font-size: 1.2rem;
-  margin: 0;
+  margin-left: 0;
 }
 .name-col{
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0rem  ;
+  padding-left: 4 rem;
 }
 .coin-trend{
   display: flex;

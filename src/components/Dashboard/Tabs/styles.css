@@ -6,3 +6,18 @@
   gap: 1rem;
   margin: 1.5rem 2rem;
 }
+.list-table{
+  width: 85%;;
+  display:block;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  padding-right: 0;
+}
+@media only screen and (max-width: 1200px){
+  .list-table{
+    display: block;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

@@ -43,7 +43,10 @@ function Grid({ coin }) {
           </div>
         </div>
       )}
-      <div className='coin-price'>
+      <div className='coin-price' style={{
+        color: coin.price_change_percentage_24h > 0 ?
+          "var(--green)" : "var(--red)"
+      }}>
         Current price: ${coin.current_price.toLocaleString('en-US')}
       </div>
 
