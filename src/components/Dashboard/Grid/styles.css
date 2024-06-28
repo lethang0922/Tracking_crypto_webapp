@@ -1,0 +1,74 @@
+.grid-container{
+  width: 250px;
+  height: 250px;
+  border:2px solid #eb420a;
+  background-color: var(--lightgray);
+  border-radius: 0.8rem;
+  padding: 1rem;
+}
+.info-flex{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem;
+}
+.coin-logo{
+  height: 4rem;
+  width: 4rem;
+}
+.coin-symbol{
+  color: var(--white);
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin: 0;
+}
+.coin-name{
+color: var(--gray);
+  text-transform: capitalize;
+  font-weight: light;
+  font-size: 1.2rem;
+  margin: 0;
+}
+.name-col{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.coin-trend{
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  align-items: center;
+  margin: 1rem 1.5rem;
+}
+
+.price-chip{
+  border: 2px solid var(--green);
+  border-radius: 2rem;
+  padding: 0.35rem 1.25rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: var(--green);
+  height: 1.5rem;
+}
+
+.chip-red {
+  border: 2px solid var(--red);
+  border-radius: 2rem;
+  padding: 0.35rem 1.25rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: var(--red);
+  height: 1.5rem;
+}
+.coin-price,.coin-volume,.coin-market-cap{
+  color: var(--gray);
+  font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1rem;
+}

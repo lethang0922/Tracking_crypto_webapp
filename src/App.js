@@ -1,0 +1,19 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import HomPage from './pages/Home';
+import DashboardPage from './pages/Dashboard';
+function App() {
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+        </Routes>
+      </BrowserRouter>
+
+    </div>
+  );
+}
+
+export default App;
