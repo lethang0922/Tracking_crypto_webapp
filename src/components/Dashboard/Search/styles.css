@@ -1,0 +1,19 @@
+.search-flex{
+  display: flex;
+  justify-self: flex-start;
+  align-items: center;
+  gap:1.5rem;
+  padding: 0.5rem 1.5rem;
+  color: var(--gray);
+  background-color: #ee941ee6;
+  width: 75%;
+  margin: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 3rem;
+}
+
+
+
+.autocomplete input {
+}

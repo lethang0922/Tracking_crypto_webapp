@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from 'react'
 import Header from '../components/Common/Header';
 import TabsComponent from '../components/Dashboard/Tabs';
+import Search from "../components/Dashboard/Search";
 
 function DashboardPage() {
 
@@ -38,7 +39,9 @@ function DashboardPage() {
   return (
     <div>
       <Header />
+      <Search coins={coins} />
       <TabsComponent coins={coins} />
+
     </div>
   )
 }
