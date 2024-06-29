@@ -7,13 +7,17 @@ import Search from "../components/Dashboard/Search";
 function DashboardPage() {
 
   const [coins, setCoins] = useState([]);
+  const [search, setSearch] = useState("");
 
-  // fetch(
-  //   'https://api.coinlore.net/api/tickers/'
-  // ).then((res) => res.json())
-  //   .then((data) => { });
+  const onSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
 
-  // https://api.coinpaprika.com/v1/coins/btc-bitcoin/ohlcv/latest
+  //let searchFilterCoin = coins.filter((item) => item.name.toLowerCase.includes(search.toLowerCase))
+
+  const searchFilterCoin = coins.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
   useEffect(() => {
     axios.get("https://api.coingecko.com/api/v3/coins/markets", {
       params: {
@@ -39,8 +43,9 @@ function DashboardPage() {
   return (
     <div>
       <Header />
-      <Search coins={coins} />
-      <TabsComponent coins={coins} />
+      <Search search={search}
+        onSearchChange={onSearchChange} />
+      <TabsComponent coins={searchFilterCoin} />
 
     </div>
   )
