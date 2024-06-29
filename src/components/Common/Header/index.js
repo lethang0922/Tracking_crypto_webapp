@@ -56,9 +56,11 @@ function Header() {
         <Link to="/watchlist">
           <p className="link">Watchlist</p>
         </Link>
-        <a href="/dashboard">
-          <Button text={"dashboard"} />
-        </a>
+        <Link to="/dashboard">
+          <Button text={"dashboard"}
+            onClick={() => console.log("Btn Clicked")}
+          />
+        </Link>
       </div>
       <div className="drawer-component">
         <TemporaryDrawer />
