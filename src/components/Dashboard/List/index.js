@@ -15,16 +15,19 @@ function formatNumber(num) {
 }
 
 function List({ coin }) {
+  if (!coin) {
+    return null; // Ensure coin is defined
+  }
   return (
     <tr className='list-container'>
-      <Tooltip title={`${coin.name} logo`}>
+      <Tooltip title={`Coinlogo`}>
         <td className='info-img'>
           <img src={coin.image} className="coin-logo" />
         </td>
       </Tooltip>
       <td>
         <div className='name-col'>
-          <Tooltip title={`${coin.name}`}>
+          <Tooltip title={`Coin name and symbol`}>
             <div>
               <p className='coin-symbol'>{coin.symbol}</p>
               <p className='coin-name'>{coin.name}</p>
@@ -64,7 +67,7 @@ function List({ coin }) {
         </td>
       </Tooltip>
 
-      <Tooltip title={`${coin.name} total volume`}>
+      <Tooltip title={` Total volume`}>
         <td>
           <p className='coin-volume td-center-align'>
             ${formatNumber(coin.total_volume)}
@@ -72,7 +75,7 @@ function List({ coin }) {
         </td>
       </Tooltip>
 
-      <Tooltip title={`${coin.name} market cap`}>
+      <Tooltip title={` Market cap`}>
         <td>
           <p className='coin-market-cap td-center-align'>
             ${formatNumber(coin.market_cap)};
@@ -85,4 +88,4 @@ function List({ coin }) {
   )
 }
 
-export default List
+export default List;
