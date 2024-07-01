@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from '../components/Common/Header';
 import List from "../components/Dashboard/List"
 import { coinObject } from '../functions/coinObject';
+import CoinInfo from '../components/Coin/CoinInfo';
 function CoinPage() {
   const { id } = useParams();
   const [coinData, setCoinData] = useState();
@@ -19,15 +20,24 @@ function CoinPage() {
         });
     }
   }, [id])
+  const isLoading = coinData;
 
   return (
     <div>
       <Header />
-      <table>
+      <table className=" grey-wrapper">
         <tbody>
           <List coin={coinData} />
         </tbody>
+
       </table>
+      <div className=" grey-wrapper">
+        {isLoading ? (
+          <CoinInfo heading={coinData.name} desc={coinData.desc} />
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
     </div>
   )
 }

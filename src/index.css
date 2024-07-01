@@ -45,3 +45,13 @@ img {
   -o-user-drag: none;
   pointer-events: none;
 }
+.grey-wrapper {
+  background-color: var(--darkgrey);
+  margin :1.5rem auto;
+  border-radius: 0.5rem;
+  display:block;
+  padding:0rem 1rem;
+  width: 90%;
+  margin-top: 1rem;
+}
+

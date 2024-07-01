@@ -12,6 +12,7 @@
   margin-left: 10rem;
   margin-right: 10rem;
   padding-right: 0;
+  text-wrap: wrap;
 }
 @media only screen and (max-width: 1200px){
   .list-table{
