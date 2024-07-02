@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import './styles.css';
 
-function SelectCoins({ crypto1, crypto2, setCrypto1, setCrypto2 }) {
+function SelectCoins({ crypto1, crypto2, handleCoinChange }) {
   const [allCoins, setAllCoins] = useState([]);
 
   const styles = {
@@ -23,22 +23,7 @@ function SelectCoins({ crypto1, crypto2, setCrypto1, setCrypto2 }) {
     },
   };
 
-  const handleCoinChange = (event, isCoin2) => {
-    const selectedCoin = event.target.value;
-    if (isCoin2) {
-      if (selectedCoin === crypto1) {
-        setCrypto2('');
-      } else {
-        setCrypto2(selectedCoin);
-      }
-    } else {
-      if (selectedCoin === crypto2) {
-        setCrypto1('');
-      } else {
-        setCrypto1(selectedCoin);
-      }
-    }
-  };
+
 
   useEffect(() => {
     getData();
@@ -48,8 +33,7 @@ function SelectCoins({ crypto1, crypto2, setCrypto1, setCrypto2 }) {
     const myCoins = await get100Coins();
     setAllCoins(myCoins);
     if (myCoins.length > 0) {
-      setCrypto1(myCoins[0].id);
-      setCrypto2(myCoins[1].id);
+
     }
   }
 
