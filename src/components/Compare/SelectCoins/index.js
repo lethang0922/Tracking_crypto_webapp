@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { get100Coins } from '../../../functions/get100Coins';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import "./styles.css"
-function SelectCoins() {
-  const [crypto1, setCrypto1] = useState("bitcoin");
-  const [crypto2, setCrypto2] = useState("ethereum");
+import './styles.css';
 
+function SelectCoins({ crypto1, crypto2, setCrypto1, setCrypto2 }) {
   const [allCoins, setAllCoins] = useState([]);
+
   const styles = {
     height: "2.5rem",
     color: "var(--white)",
@@ -23,17 +22,28 @@ function SelectCoins() {
       },
     },
   };
-  const handleCoinChange = (event, isCoin2) => {
-    if (isCoin2) {
-      setCrypto2(event.target.value);
 
+  const handleCoinChange = (event, isCoin2) => {
+    const selectedCoin = event.target.value;
+    if (isCoin2) {
+      if (selectedCoin === crypto1) {
+        setCrypto2('');
+      } else {
+        setCrypto2(selectedCoin);
+      }
     } else {
-      setCrypto1(event.target.value);
+      if (selectedCoin === crypto2) {
+        setCrypto1('');
+      } else {
+        setCrypto1(selectedCoin);
+      }
     }
-  }
+  };
+
   useEffect(() => {
-    getData()
-  });
+    getData();
+  }, []);
+
   async function getData() {
     const myCoins = await get100Coins();
     setAllCoins(myCoins);
@@ -42,6 +52,7 @@ function SelectCoins() {
       setCrypto2(myCoins[1].id);
     }
   }
+
   return (
     <div className='coins-flex'>
       <p>Crypto1</p>
@@ -55,7 +66,7 @@ function SelectCoins() {
           <MenuItem value="">Loading...</MenuItem>
         ) : (
           allCoins.map((coin) => (
-            <MenuItem key={coin.id} value={coin.id}>
+            <MenuItem key={coin.id} value={coin.id} disabled={coin.id === crypto2}>
               {coin.name}
             </MenuItem>
           ))
@@ -72,13 +83,13 @@ function SelectCoins() {
           <MenuItem value="">Loading...</MenuItem>
         ) : (
           allCoins.map((coin) => (
-            <MenuItem key={coin.id} value={coin.id}>
+            <MenuItem key={coin.id} value={coin.id} disabled={coin.id === crypto1}>
               {coin.name}
             </MenuItem>
           ))
         )}
       </Select>
-    </div >
+    </div>
   );
 }
 
