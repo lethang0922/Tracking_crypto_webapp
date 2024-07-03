@@ -16,7 +16,7 @@ function ComparePage() {
   const [crypto2, setCrypto2] = useState("ethereum");
   const [crypto1Data, setCrypto1Data] = useState({});
   const [crypto2Data, setCrypto2Data] = useState({});
-  const [days, setDays] = useState(30);
+  const [days, setDays] = useState(7);
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState(null);
   const [priceType, setPriceType] = useState('prices');
