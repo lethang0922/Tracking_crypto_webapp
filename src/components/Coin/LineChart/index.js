@@ -1,6 +1,6 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto"; //Dont get rid of this
+import { Chart as ChartJS } from "chart.js/auto"; // Don't remove this
 
 function LineChart({ chartData, multiAxis }) {
   const options = {
@@ -14,7 +14,6 @@ function LineChart({ chartData, multiAxis }) {
       mode: "index",
       intersect: false,
     },
-
   };
 
   return (
@@ -25,7 +24,7 @@ function LineChart({ chartData, multiAxis }) {
         <p>Loading chart data...</p>
       )}
     </div>
-  )
+  );
 }
 
 export default LineChart;

@@ -7,6 +7,9 @@ import { coinObject } from '../functions/coinObject';
 import { getCoinPrices } from '../functions/getCoinPrices';
 import List from '../components/Dashboard/List';
 import CoinInfo from '../components/Coin/CoinInfo';
+import { settingChartData } from '../functions/settingChartData';
+import LineChart from '../components/Coin/LineChart';
+
 function ComparePage() {
   const [crypto1, setCrypto1] = useState("bitcoin");
   const [crypto2, setCrypto2] = useState("ethereum");
@@ -15,12 +18,14 @@ function ComparePage() {
   const [days, setDays] = useState(30);
   const [priceType, setPriceType] = useState("prices");
   const [loading, setLoading] = useState(false);
+  const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
     getData();
   }, [crypto1, crypto2, days, priceType]);
 
   async function getData() {
+    setLoading(true);
     try {
       const data1 = await getCoinData(crypto1);
       const data2 = await getCoinData(crypto2);
@@ -28,52 +33,41 @@ function ComparePage() {
       if (data1) {
         coinObject(setCrypto1Data, data1);
       }
+
       if (data2) {
         coinObject(setCrypto2Data, data2);
       }
 
-      if (data1 && data2) {
-        const prices1 = await getCoinPrices(crypto1, days, "prices");
-        const prices2 = await getCoinPrices(crypto2, days, "prices");
-        // Ensure prices1 and prices2 are arrays with data
-        if (Array.isArray(prices1) && Array.isArray(prices2) && prices1.length > 0 && prices2.length > 0) {
-          console.log("Both prices fetched", prices1, prices2);
-          // Handle further operations with prices
-        }
-      }
+      const prices1 = await getCoinPrices(crypto1, days, priceType);
+      const prices2 = await getCoinPrices(crypto2, days, priceType);
+
+      settingChartData(setChartData, prices1, prices2);
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
   const handleCoinChange = async (event, isCoin2) => {
     const selectedCoin = event.target.value;
-    if (isCoin2) {
-      if (selectedCoin === crypto2) {
-        setCrypto2('');
-      } else {
+    setLoading(true);
+    try {
+      if (isCoin2) {
         setCrypto2(selectedCoin);
-        const data = await getCoinPrices(event.target.value);
-        coinObject(setCrypto2Data, data)
-      }
-    } else {
-      if (selectedCoin === crypto1) {
-        setCrypto1('');
       } else {
         setCrypto1(selectedCoin);
-        const data = await getCoinPrices(event.target.value);
-        coinObject(setCrypto1Data, data)
       }
+    } catch (error) {
+      console.error("Error handling coin change:", error);
+    } finally {
+      setLoading(false);
     }
-    const prices1 = await getCoinPrices(crypto1, days, priceType);
-    const prices2 = await getCoinPrices(crypto2, days, priceType);
   };
 
-
-
-  function handleDaysChange(event) {
+  const handleDaysChange = (event) => {
     setDays(event.target.value);
-  }
+  };
 
   return (
     <div>
@@ -81,8 +75,9 @@ function ComparePage() {
       <div className='coins-days-flex'>
         <SelectCoins
           crypto1={crypto1}
-          handleCoinChange={handleCoinChange}
+          handleCoinChange={(event) => handleCoinChange(event, false)}
           crypto2={crypto2}
+          handleCoinChange2={(event) => handleCoinChange(event, true)}
         />
         <SelectDays
           days={days}
@@ -95,6 +90,9 @@ function ComparePage() {
       </div>
       <div className='grey-wrapper' styles={{ padding: "0rem 1rem" }}>
         <List coin={crypto2Data} />
+      </div>
+      <div className="grey-wrapper">
+        {loading ? <p>Loading chart data...</p> : <LineChart chartData={chartData} priceType={"prices"} />}
       </div>
       <CoinInfo heading={crypto1Data?.name} desc={crypto1Data?.desc} />
       <CoinInfo heading={crypto2Data?.name} desc={crypto2Data?.desc} />

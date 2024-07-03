@@ -15,7 +15,7 @@ import PriceType from '../components/Coin/PriceType';
 function CoinPage() {
   const { id } = useParams();
   const [coinData, setCoinData] = useState();
-  const [days, setDays] = useState(30);
+  const [days, setDays] = useState(7);
   const [chartData, setChartData] = useState(); // Initialize chartData state
   const [priceType, setPriceType] = useState('prices');
 
@@ -71,7 +71,7 @@ function CoinPage() {
           <SelectDates days={days} handleDaysChange={handleDaysChange} />
           <PriceType priceType={priceType}
             handlePriceTypeChange={handlePriceTypeChange} />
-          <LineChart chartData={chartData} />
+          <LineChart chartData={chartData} priceType={priceType} />
           <CoinInfo heading={coinData?.name} desc={coinData?.desc} />
         </div>
       ) : (
