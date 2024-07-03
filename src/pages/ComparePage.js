@@ -9,6 +9,7 @@ import List from '../components/Dashboard/List';
 import CoinInfo from '../components/Coin/CoinInfo';
 import { settingChartData } from '../functions/settingChartData';
 import LineChart from '../components/Coin/LineChart';
+import PriceType from '../components/Coin/PriceType';
 
 function ComparePage() {
   const [crypto1, setCrypto1] = useState("bitcoin");
@@ -16,9 +17,14 @@ function ComparePage() {
   const [crypto1Data, setCrypto1Data] = useState({});
   const [crypto2Data, setCrypto2Data] = useState({});
   const [days, setDays] = useState(30);
-  const [priceType, setPriceType] = useState("prices");
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState(null);
+  const [priceType, setPriceType] = useState('prices');
+  const handlePriceTypeChange = async (event) => {
+    const newType = event.target.value;
+    setPriceType(newType);
+    getData(); // Fetch new data with updated price type
+  };
 
   useEffect(() => {
     getData();
@@ -92,7 +98,14 @@ function ComparePage() {
         <List coin={crypto2Data} />
       </div>
       <div className="grey-wrapper">
-        {loading ? <p>Loading chart data...</p> : <LineChart chartData={chartData} priceType={"prices"} />}
+        {loading ? <p>Loading chart data...</p> :
+          <div>
+            <PriceType priceType={priceType}
+              handlePriceTypeChange={handlePriceTypeChange} />
+
+            <LineChart chartData={chartData} priceType={"prices"} />
+          </div>
+        }
       </div>
       <CoinInfo heading={crypto1Data?.name} desc={crypto1Data?.desc} />
       <CoinInfo heading={crypto2Data?.name} desc={crypto2Data?.desc} />
