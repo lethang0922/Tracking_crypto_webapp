@@ -5,7 +5,8 @@ import SelectDays from '../components/Coin/SelectDates';
 import { getCoinData } from '../functions/getCoindata';
 import { coinObject } from '../functions/coinObject';
 import { getCoinPrices } from '../functions/getCoinPrices';
-
+import List from '../components/Dashboard/List';
+import CoinInfo from '../components/Coin/CoinInfo';
 function ComparePage() {
   const [crypto1, setCrypto1] = useState("bitcoin");
   const [crypto2, setCrypto2] = useState("ethereum");
@@ -13,9 +14,11 @@ function ComparePage() {
   const [crypto2Data, setCrypto2Data] = useState({});
   const [days, setDays] = useState(30);
   const [priceType, setPriceType] = useState("prices");
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     getData();
-  }, []);
+  }, [crypto1, crypto2, days, priceType]);
 
   async function getData() {
     try {
@@ -32,7 +35,8 @@ function ComparePage() {
       if (data1 && data2) {
         const prices1 = await getCoinPrices(crypto1, days, "prices");
         const prices2 = await getCoinPrices(crypto2, days, "prices");
-        if (prices1.length > 0 && prices2.length > 0) {
+        // Ensure prices1 and prices2 are arrays with data
+        if (Array.isArray(prices1) && Array.isArray(prices2) && prices1.length > 0 && prices2.length > 0) {
           console.log("Both prices fetched", prices1, prices2);
           // Handle further operations with prices
         }
@@ -51,7 +55,6 @@ function ComparePage() {
         setCrypto2(selectedCoin);
         const data = await getCoinPrices(event.target.value);
         coinObject(setCrypto2Data, data)
-
       }
     } else {
       if (selectedCoin === crypto1) {
@@ -60,8 +63,6 @@ function ComparePage() {
         setCrypto1(selectedCoin);
         const data = await getCoinPrices(event.target.value);
         coinObject(setCrypto1Data, data)
-
-
       }
     }
     const prices1 = await getCoinPrices(crypto1, days, priceType);
@@ -89,9 +90,14 @@ function ComparePage() {
           noPTag={true}
         />
       </div>
-      <div>
-
+      <div className='grey-wrapper' styles={{ padding: "0rem 1rem" }}>
+        <List coin={crypto1Data} />
       </div>
+      <div className='grey-wrapper' styles={{ padding: "0rem 1rem" }}>
+        <List coin={crypto2Data} />
+      </div>
+      <CoinInfo heading={crypto1Data?.name} desc={crypto1Data?.desc} />
+      <CoinInfo heading={crypto2Data?.name} desc={crypto2Data?.desc} />
     </div>
   );
 }

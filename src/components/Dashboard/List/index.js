@@ -16,8 +16,8 @@ function formatNumber(num) {
 }
 
 function List({ coin }) {
-  if (!coin) {
-    return null; // Ensure coin is defined
+  if (!coin || !coin.price_change_percentage_24h || !coin.current_price) {
+    return null; // Ensure coin and necessary data are defined
   }
   return (
     <Link to={`/coin/${coin.id}`} >
