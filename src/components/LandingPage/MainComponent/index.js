@@ -6,6 +6,8 @@ import gradient from "../../../assets/gradient.png";
 import { motion } from "framer-motion";
 import { RWebShare } from "react-web-share";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+
 
 function MainComponent() {
   return (
@@ -25,9 +27,11 @@ function MainComponent() {
         </motion.h1>
         <p class="info-text">  Track crypto in real time by API</p>
         <div class="button-flex">
-          <a href="/dashboard">
-            <Button text={"Dashboard"} />
-          </a>
+          <Link to="/dashboard">
+            <Button text={"dashboard"}
+              onClick={() => console.log("Btn Clicked")}
+            />
+          </Link>
           <RWebShare
             data={{
               text: "CryptoDashboard made by Avi Vashishta using React JS.",
